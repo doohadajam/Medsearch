@@ -17,24 +17,10 @@
         <div class="sidebar-body">
             <ul class="sidebar-body-menu">
                 <li>
-                    <a  href="/" {% if request.path == '/' %} class="active"{% endif %}  href="/"><span class="icon home" aria-hidden="true"></span>Dashboard</a>
+                    <a  href="/" {% if request.path == '/' %} class="active"{% endif %}><span class="icon home" aria-hidden="true"></span>Dashboard</a>
                 </li>
                 <li>
-                    <a class="show-cat-btn" href="" {% if request.path == '/medicines-list' or request.path == "/add-new-medicine" %} class="active"{% endif %}>
-                        <span class="icon document" aria-hidden="true"></span>Medicines
-                        <span class="category__btn transparent-btn" title="Open list">
-                            <span class="sr-only">Open list</span>
-                            <span class="icon arrow-down" aria-hidden="true"></span>
-                        </span>
-                    </a>
-                    <ul class="cat-sub-menu">
-                        <li>
-                            <a href="/medicines-list">All Medicines</a>
-                        </li>
-                        <li>
-                            <a href="/add-new-medicine">Add new Medicine</a>
-                        </li>
-                    </ul>
+                    <a href="/medicines" {% if request.path == '/medicines' %} class="active"{% endif %}><span class="icon star" aria-hidden="true"></span>Add new Medicine</a>
                 </li>
             </ul>
             

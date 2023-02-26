@@ -1140,6 +1140,12 @@ body {
   height: 17px;
   margin-left: 10px;
 }
+.medicine {
+  background-image: url(../img/svg/Bulk/medicine.svg);
+  width: 10px;
+  height: 17px;
+  margin-left: 10px;
+}
 
 .move {
   background-image: url(../img/svg/move.svg);

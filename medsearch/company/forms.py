@@ -3,6 +3,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import *
 from django.db import transaction
+from django.forms.widgets import Select
+
 
 # This is a form for user login
 class LoginForm(forms.Form):
@@ -66,3 +68,20 @@ class CompanyUpdateForm(forms.ModelForm):
             company.save()
             return company
 
+
+       
+
+
+class MedicineForm(forms.ModelForm):
+    category = forms.ChoiceField(choices=Medicine.Category.choices, widget=Select(attrs={'class': 'form-input'}))
+
+    class Meta:
+        model = Medicine
+        fields = ['name', 'description', 'price','ingredients','category', 'photo']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-input'}),
+            'description': forms.Textarea(attrs={'class': 'form-input'}),
+            'price': forms.NumberInput(attrs={'class': 'form-input'}),
+            'ingredients': forms.Textarea(attrs={'class': 'form-input'}),
+            'photo': forms.FileInput(attrs={'class': 'form-input'}),
+        }

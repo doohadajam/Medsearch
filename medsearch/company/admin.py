@@ -7,3 +7,4 @@ from .models import *
 #     list_display = ('name', 'description', 'created_at')
 
 admin.site.register(CompanyModel)
+admin.site.register(Medicine)

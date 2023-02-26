@@ -6,9 +6,8 @@ urlpatterns = [
     # Dashboard view
     path('', views.dashboard, name='index'),
     # Add new medicine view
-    path('add-new-medicine',views.addNewMedicine,name='add_new_medicine'),
-    # Medicines list view
-    path('medicines-list',views.medicinesList,name="medicines_list"),
+    path('medicines',views.medicine_view,name='medicine_view'),
+    path('create_medicine',views.create_medicine,name='create_medicine'),
     # Login view
     path('login',views.login_view,name="login"),
     # Register view
@@ -16,6 +15,8 @@ urlpatterns = [
     # Logout view
     path('logout', views.logout_view, name='logout'),
     path('company_profile', views.company_profile, name='company_profile'),
+    path('delete_medicine/<int:pk>', views.delete_medicine, name='delete_medicine'),
+    path('update_medicine/<int:pk>', views.update_medicine, name='update_medicine'),
 
 ]
 

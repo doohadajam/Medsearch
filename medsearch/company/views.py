@@ -1,9 +1,10 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-
 from .forms import *
+
 
 # View for registering a new company
 def register_view(request):
@@ -21,6 +22,7 @@ def register_view(request):
         # If the request method is GET, display the form for registering a new company
         form = CompanyCreationForm()
     return render(request, 'signup.html', {'form': form})
+
 
 # View for logging in to the website
 def login_view(request):
@@ -50,6 +52,7 @@ def logout_view(request):
     logout(request)
     return redirect('login')
 
+
 # View for the dashboard page
 def dashboard(request):
     if not request.user.is_authenticated:
@@ -58,15 +61,6 @@ def dashboard(request):
     else:
         # If the user is authenticated, display the dashboard page
         return render(request, 'index.html')
-
-# View for adding a new medicine
-def addNewMedicine(request):
-    if not request.user.is_authenticated:
-        # If the user is not authenticated, redirect to the login page
-        return redirect('login')
-    else:
-        # If the user is authenticated, display the form for adding a new medicine
-        return render(request, 'add-medicine.html')
 
 # View for displaying a list of all medicines
 def medicinesList(request):
@@ -106,8 +100,54 @@ def company_profile(request):
 
 def logo_path(request):
     if request.user.is_authenticated:
-        company = CompanyModel.objects.get(user=request.user)
-        return {'logo_path': company.logo.url}
+        try:
+                company = CompanyModel.objects.get(user=request.user)
+                return {'logo_path': company.logo.url}
+
+
+        except :
+                 return {'logo_path':''}
+        
     else:
           return {'logo_path': ''}
 
+
+def medicine_view(request):
+    medicines = Medicine.objects.filter(company__user=request.user)
+    return render(request,'medicines.html',{'medicines': medicines})
+
+
+
+
+def create_medicine(request):
+    if request.method == 'POST':
+        form = MedicineForm(request.POST, request.FILES)
+        if form.is_valid():
+            medicine = form.save(commit=False)
+            medicine.company = CompanyModel.objects.get(user=request.user)
+            medicine.save()
+            return HttpResponse(status=200)
+    else:
+        form = MedicineForm()
+    return render(request, 'medicine_form.html', {'form': form})
+
+@login_required
+def update_medicine(request, pk):
+    medicine = Medicine.objects.get(pk=pk)
+    if request.method == 'POST':
+        form = MedicineForm(request.POST, request.FILES, instance=medicine)
+        if form.is_valid():
+            form.save()
+            return HttpResponse(status=200)
+    else:
+        form = MedicineForm(instance=medicine)
+    return render(request, 'edite-medicine.html', {'form': form})
+
+@login_required
+def delete_medicine(request, pk):
+    medicine = Medicine.objects.get(pk=pk)
+    if request.method == 'POST':
+        medicine.delete()
+        return HttpResponse(status=200)
+
+    return render(request, 'delete-modal.html', {'medicine': medicine})
