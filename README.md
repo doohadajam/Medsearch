@@ -5,9 +5,10 @@ Medication Search Project .
 
 
 
-- Project Description :
+## Project Description :
 
 
 This Website to help anyone, the doctor, the patient, etc.
-wants to search for medications through the text from the images,  the company's trade name or the scientific name of the medications.
+
+### wants to search for medications through the text from the images,  the company's trade name or the scientific name of the medications.
 
