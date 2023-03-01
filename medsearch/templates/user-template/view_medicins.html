@@ -1,0 +1,45 @@
+{% extends 'user-template/includes/base.html'%} 
+{%block content%}
+{% include 'user-template/includes/header.html' %}
+
+
+
+
+<!--Medications Productes section-->
+
+<!-- end Medications Productes section-->
+
+
+<section class="u-align-center u-clearfix u-section-6" id="carousel_aa08">
+    <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+      <h2 class="u-custom-font u-font-lato u-text u-text-default u-text-palette-4-base u-text-1">Medications Productes</h2>
+      <p class="u-text u-text-2">Here we present all the added Medications from the companies. </p>
+      <div class="u-expanded-width u-list u-list-1">
+        <div class="u-repeater u-repeater-1">
+            {% for medicine in medicines %}
+
+          <div class="u-border-1 u-border-palette-4-base u-container-style u-list-item u-repeater-item u-shape-rectangle u-list-item-1" data-animation-name="flipIn" data-animation-duration="2000" data-animation-direction="X">
+            <div class="u-container-layout u-similar-container u-container-layout-1">
+                <a class="u-post-header-link" href="{% url 'medicine_detail' medicine.id %}"><img alt="" class="u-blog-control u-expanded-width u-image u-image-default u-image-2" src="{{ medicine.photo.url }}"></a><!--/blog_post_image--><!--blog_post_content-->
+                <p style="text-align: center;">
+                    <a href="{% url 'company_details' medicine.company.id %}" class="u-active-white u-border-none u-btn u-btn-rectangle u-button-style u-custom-font u-font-lato u-hover-white u-palette-4-light-2 u-radius-0 u-btn-1" data-animation-name="flipIn" data-animation-duration="2000" data-animation-direction="X">  
+                        <h6 class="u-blog-control u-text " style="text-align: center;">
+                        <a class="u-post-header-link btn btn-outline-dark"  href="{% url 'medicine_detail' medicine.id %}">{{ medicine.name}}</a></h6></a>
+                        <h6 class="u-blog-control u-text " style="text-align: center;">
+                          <a class="u-post-header-link btn btn-outline-dark"  href="{% url 'company_details' medicine.company.id %}"><strong>Company: {{ medicine.company }} </strong></a></h6></a>                </p>
+                
+            </div>
+
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+
+{%endblock%}

@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="{% static './img/svg/logo.svg' %}" type="image/x-icon">
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="{% static './css/style.min.css' %}">
+</head>
+
+<body >
+  
+  <div class="layer"></div>
+<main class="page-center" style="background-color: white;">
+  <article class="sign-up" >
+    <form class="sign-up-form form" method="POST" enctype="multipart/form-data" style="background-color: azure;">
+      {% csrf_token %}
+    {% for field in form %}
+    <label class="form-label-wrapper">
+      <p class="form-label"> {{ field.label_tag }}</p>
+      {{ field }}
+    </label>
+  {% endfor %}
+
+      <button class="form-btn primary-default-btn transparent-btn">Login</button>
+      <br>
+      <h5>You don't have an account ? click here <a href="{% url 'register' %}" style="color: red;"> register</a></h5>
+
+    </form>
+  </article>
+</main>
+
+<!-- Custom scripts -->
+<script src="{% static 'js/script.js'%}"></script>
+</body>
+
+</html>
