@@ -1,0 +1,57 @@
+{% extends 'company-admin/base.html'%}
+
+{%block content%}
+
+<!-- medicines page -->
+
+<div class="layer"></div>
+<div class="row">
+    <h2 class="main-title col-md-10" >Medicines</h2>
+    <button class='btn btn-primary col-md-2' hx-get="{% url 'create_medicine' %}" hx-target="#dialog">
+         Add Medicine </button>
+</div> 
+
+<div class="container card" style="margin-top:20px">
+
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Photo</th>
+            <th scope="col">Name</th>
+            <th scope="col">Category</th>
+            <th scope="col">Ingredients</th>
+            <th scope="col">Description</th>
+            <th scope="col">Price</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="medicine-table-body">
+          {% for medicine in medicines %}
+          <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td><img src="{{ medicine.photo.url }}" alt="Medicine Photo" width="50px"></td>
+            <td>{{ medicine.name }}</td>
+            <td>{{ medicine.category }}</td>
+            <td>{{ medicine.ingredients }}</td>
+            <td>{{ medicine.description }}</td>
+            <td>{{ medicine.price }}</td>
+            <td>
+              <button hx-get="{% url 'update_medicine'  medicine.pk%}" hx-target="#dialog" class="btn btn-primary">Edit</button>
+              <button type="button" class="btn btn-danger" hx-get="{% url 'delete_medicine' medicine.pk %}" hx-target="#dialog">Delete</button>
+            </td>
+          </tr>
+
+          </div>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+{%endblock content%}

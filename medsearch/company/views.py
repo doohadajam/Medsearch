@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -21,7 +22,7 @@ def register_view(request):
     else:
         # If the request method is GET, display the form for registering a new company
         form = CompanyCreationForm()
-    return render(request, 'signup.html', {'form': form})
+    return render(request, 'company-admin/signup.html', {'form': form})
 
 
 # View for logging in to the website
@@ -37,14 +38,14 @@ def login_view(request):
                 # If the user is authenticated, log them in and redirect to the dashboard
                 login(request, user)
                 messages.success(request, 'You have successfully logged in!')
-                return redirect('index')
+                return redirect('company-admin')
             else:
                 # If the user is not authenticated, display an error message and redisplay the login form
                 messages.error(request, 'Invalid username or password.')
     else:
         # If the request method is GET, display the login form
         form = LoginForm()
-    return render(request, 'signin.html', {'form': form})
+    return render(request, './company-admin/signin.html', {'form': form})
 
 # View for logging out of the website
 def logout_view(request):
@@ -53,14 +54,14 @@ def logout_view(request):
     return redirect('login')
 
 
-# View for the dashboard page
+# View for the dashboard page (Profile company)
 def dashboard(request):
     if not request.user.is_authenticated:
         # If the user is not authenticated, redirect to the login page
         return redirect('login')
     else:
         # If the user is authenticated, display the dashboard page
-        return render(request, 'index.html')
+        return render(request, './company-admin/index.html')
 
 # View for displaying a list of all medicines
 def medicinesList(request):
@@ -69,8 +70,9 @@ def medicinesList(request):
         return redirect('login')
     else:
         # If the user is authenticated, display the list of all medicines
-        return render(request, 'medicines-list.html')
+        return render(request, './company-admin/medicines-list.html')
 
+# View company profile
 
 @login_required
 def company_profile(request):
@@ -88,14 +90,15 @@ def company_profile(request):
         form = CompanyUpdateForm(request.POST, request.FILES)
         if form.is_valid():
             form.save(company)
-            return render(request, 'company_profile.html', {'form': form , 'initial_data' :initial_data})
+            return render(request, './company-admin/company_profile.html', {'form': form , 'initial_data' :initial_data})
 
         else:
             print(form.errors)
     else:
         form = CompanyUpdateForm(initial_data)
-    return render(request, 'company_profile.html', {'form': form , 'initial_data' :initial_data})
+    return render(request, './company-admin/company_profile.html', {'form': form , 'initial_data' :initial_data})
 
+# View logo path
 
 
 def logo_path(request):
@@ -112,12 +115,14 @@ def logo_path(request):
           return {'logo_path': ''}
 
 
+# View medicine veiw for all medications
+
 def medicine_view(request):
     medicines = Medicine.objects.filter(company__user=request.user)
-    return render(request,'medicines.html',{'medicines': medicines})
+    return render(request,'./company-admin/medicines.html',{'medicines': medicines})
 
 
-
+# View for add new medicine from company
 
 def create_medicine(request):
     if request.method == 'POST':
@@ -129,7 +134,9 @@ def create_medicine(request):
             return HttpResponse(status=200)
     else:
         form = MedicineForm()
-    return render(request, 'medicine_form.html', {'form': form})
+    return render(request, './company-admin/medicine_form.html', {'form': form})
+
+# View for update medicine from company
 
 @login_required
 def update_medicine(request, pk):
@@ -141,7 +148,10 @@ def update_medicine(request, pk):
             return HttpResponse(status=200)
     else:
         form = MedicineForm(instance=medicine)
-    return render(request, 'edite-medicine.html', {'form': form})
+    return render(request, './company-admin/edite-medicine.html', {'form': form})
+
+
+# View for delete medicine from company
 
 @login_required
 def delete_medicine(request, pk):
@@ -150,4 +160,6 @@ def delete_medicine(request, pk):
         medicine.delete()
         return HttpResponse(status=200)
 
-    return render(request, 'delete-modal.html', {'medicine': medicine})
+    return render(request, './company-admin/delete-modal.html', {'medicine': medicine})
+
+

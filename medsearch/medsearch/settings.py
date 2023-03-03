@@ -32,11 +32,13 @@ SECRET_KEY = 'django-insecure-o!9m5-b4l%#qytca@ti-oz4-i2dxqeu6x$gn-s-f0=lqq+h5x*
 DEBUG = True
 
 ALLOWED_HOSTS = []
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'customer.apps.CustomerConfig',
     'company.apps.CompanyConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -44,6 +46,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+     'fontawesomefree',
+     'crispy_forms',
+     'bootstrap4'
 ]
 
 MIDDLEWARE = [
@@ -54,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'medsearch.middleware.SearchLimitMiddleware'
 ]
 
 ROOT_URLCONF = 'medsearch.urls'

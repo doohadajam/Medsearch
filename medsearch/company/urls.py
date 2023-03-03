@@ -4,19 +4,20 @@ from . import views
 
 urlpatterns = [
     # Dashboard view
-    path('', views.dashboard, name='index'),
+    path('company-admin', views.dashboard, name='company-admin'),
+    path('company-admin/dashboard', views.dashboard, name='dashboard'),
     # Add new medicine view
-    path('medicines',views.medicine_view,name='medicine_view'),
-    path('create_medicine',views.create_medicine,name='create_medicine'),
+    path('company-admin/medicines',views.medicine_view,name='medicines'),
+    path('company-admin/create_medicine',views.create_medicine,name='create_medicine'),
     # Login view
-    path('login',views.login_view,name="login"),
+    path('company-admin/login',views.login_view,name="login"),
     # Register view
-    path('register',views.register_view,name="register"),
+    path('company-admin/register',views.register_view,name="register"),
     # Logout view
-    path('logout', views.logout_view, name='logout'),
-    path('company_profile', views.company_profile, name='company_profile'),
-    path('delete_medicine/<int:pk>', views.delete_medicine, name='delete_medicine'),
-    path('update_medicine/<int:pk>', views.update_medicine, name='update_medicine'),
+    path('company-admin/logout', views.logout_view, name='logout'),
+    path('company-admin/company_profile', views.company_profile, name='company_profile'),
+    path('company-admin/delete_medicine/<int:pk>', views.delete_medicine, name='delete_medicine'),
+    path('company-admin/update_medicine/<int:pk>', views.update_medicine, name='update_medicine'),
 
 ]
 
